@@ -15,22 +15,23 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Post {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)
 	private Integer id;
 	private String name;
-	
+
 	@Column(columnDefinition = "text")
 	private String caption;
 	private String location;
 	private int likes;
 	private Date postedDate;
+	private String username;
 	private Integer userImageId;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name= "post_id")
+	@JoinColumn(name = "post_id")
 	private List<Comment> commentsList;
 
 	public Post() {
@@ -111,6 +112,14 @@ public class Post {
 
 	public void setCommentsList(List<Comment> commentsList) {
 		this.commentsList = commentsList;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

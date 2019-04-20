@@ -18,6 +18,6 @@ public interface AccountService {
 	public void deleteUser(User user);
 	public void resetPassword(User user);
 	public List<User> getUserListByUsername(String username);
-	public void simpleSave(User user); 
+	public User simpleSave(User user); 
 	
 }
