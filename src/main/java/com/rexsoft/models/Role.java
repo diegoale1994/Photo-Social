@@ -1,5 +1,6 @@
 package com.rexsoft.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Role {
-	
+public class Role implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int roleId;

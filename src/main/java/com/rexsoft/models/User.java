@@ -1,5 +1,6 @@
 package com.rexsoft.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,12 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class User {
-	
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)
-	private Integer id;
+	private Long id;
 	private String name;
 	
 	@Column(unique = true)
@@ -44,7 +49,7 @@ public class User {
 	public User() {
 	}
 
-	public User(Integer id, String name, String username, String password, String email, String bio, Date createdDate,
+	public User(Long id, String name, String username, String password, String email, String bio, Date createdDate,
 			Set<UserRole> userRoles, List<Post> post, List<Post> likedPost) {
 		this.id = id;
 		this.name = name;
@@ -58,11 +63,11 @@ public class User {
 		this.likedPost = likedPost;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -126,8 +131,8 @@ public class User {
 		return post;
 	}
 
-	public void setPost(List<Post> post) {
-		this.post = post;
+	public void setPost(Post post) {
+		this.post.add(post);
 	}
 
 	public List<Post> getLikedPost() {
