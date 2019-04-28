@@ -33,7 +33,7 @@ public class Post implements Serializable {
 	private int likes;
 	private Date postedDate;
 	private String username;
-	private Integer userImageId;
+	private Long userImageId;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "post_id")
@@ -44,7 +44,7 @@ public class Post implements Serializable {
 	}
 
 	public Post(Integer id, String name, String caption, String location, int likes, Date postedDate,
-			Integer userImageId, List<Comment> commentsList) {
+			Long userImageId, List<Comment> commentsList) {
 		this.id = id;
 		this.name = name;
 		this.caption = caption;
@@ -103,12 +103,12 @@ public class Post implements Serializable {
 		this.postedDate = postedDate;
 	}
 
-	public Integer getUserImageId() {
+	public Long getUserImageId() {
 		return userImageId;
 	}
 
-	public void setUserImageId(Integer userImageId) {
-		this.userImageId = userImageId;
+	public void setUserImageId(Long id) {
+		this.userImageId = id;
 	}
 
 	public List<Comment> getCommentsList() {
