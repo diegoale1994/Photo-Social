@@ -24,7 +24,7 @@ public class Post implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)
-	private Integer id;
+	private Long id;
 	private String name;
 
 	@Column(columnDefinition = "text")
@@ -43,7 +43,7 @@ public class Post implements Serializable {
 
 	}
 
-	public Post(Integer id, String name, String caption, String location, int likes, Date postedDate,
+	public Post(Long id, String name, String caption, String location, int likes, Date postedDate,
 			Long userImageId, List<Comment> commentsList) {
 		this.id = id;
 		this.name = name;
@@ -55,11 +55,11 @@ public class Post implements Serializable {
 		this.commentsList = commentsList;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package utility;
+package com.rexsoft.utility;
 
 import java.io.File;
 

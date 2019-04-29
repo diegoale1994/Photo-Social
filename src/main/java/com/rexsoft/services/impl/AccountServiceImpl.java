@@ -1,10 +1,10 @@
 package com.rexsoft.services.impl;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,10 +28,11 @@ import com.rexsoft.models.UserRole;
 import com.rexsoft.repositories.RoleRepo;
 import com.rexsoft.repositories.UserRepo;
 import com.rexsoft.services.AccountService;
+import com.rexsoft.utility.Constants;
+import com.rexsoft.utility.EmailConstructor;
 
-import utility.Constants;
-import utility.EmailConstructor;
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
@@ -75,7 +76,7 @@ public class AccountServiceImpl implements AccountService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		mailSender.send(emailConstructor.constructorNewUserEmail(appUser, password));
+		mailSender.send(emailConstructor.constructNewUserEmail(appUser, password));
 		return appUser;
 	}
 

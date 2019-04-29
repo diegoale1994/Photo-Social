@@ -21,8 +21,7 @@ import com.rexsoft.models.Post;
 import com.rexsoft.models.User;
 import com.rexsoft.repositories.PostRepo;
 import com.rexsoft.services.PostService;
-
-import utility.Constants;
+import com.rexsoft.utility.Constants;
 @Service
 @Transactional
 public class PostServiceImpl implements PostService {

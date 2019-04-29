@@ -9,6 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class RexsoftApplication {
 
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(RexsoftApplication.class, args);
 	}
