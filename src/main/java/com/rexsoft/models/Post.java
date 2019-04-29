@@ -115,8 +115,8 @@ public class Post implements Serializable {
 		return commentsList;
 	}
 
-	public void setCommentsList(List<Comment> commentsList) {
-		this.commentsList = commentsList;
+	public void setCommentsList(Comment comment) {
+		this.commentsList.add(comment);
 	}
 
 	public String getUsername() {
