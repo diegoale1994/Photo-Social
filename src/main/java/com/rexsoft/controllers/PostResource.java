@@ -56,7 +56,7 @@ public class PostResource {
 	}
 
 	@GetMapping("/getPostByUsername/{username}")
-	public ResponseEntity<?> getPostByUsername(@PathVariable("postId") String username) {
+	public ResponseEntity<?> getPostByUsername(@PathVariable("username") String username) {
 		User user = accountService.findByUsername(username);
 
 		if (user == null) {

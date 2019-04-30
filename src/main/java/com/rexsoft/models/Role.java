@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Role implements Serializable {
 
@@ -25,6 +27,7 @@ public class Role implements Serializable {
 	private String name;
 	
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<UserRole> userroles = new HashSet<>();
 
 	public Role(int roleId, String name, Set<UserRole> userroles) {

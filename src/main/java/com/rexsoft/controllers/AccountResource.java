@@ -80,7 +80,7 @@ public class AccountResource {
 			User user = accountService.saveUser(name, username, email);
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("An error ocurred", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("An error ocurred "+ e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 

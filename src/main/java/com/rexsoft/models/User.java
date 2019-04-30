@@ -15,12 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +34,8 @@ public class User implements Serializable {
 	
 	@Column(columnDefinition = "text")
 	private String bio;
+	
+	@CreationTimestamp
 	private Date createdDate;
 	
 	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

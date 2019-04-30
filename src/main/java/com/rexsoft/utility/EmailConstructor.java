@@ -13,6 +13,7 @@ import org.thymeleaf.context.Context;
 
 import com.rexsoft.models.User;
 
+
 @Component
 public class EmailConstructor {
 
@@ -33,7 +34,7 @@ public class EmailConstructor {
 				MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
 				email.setPriority(1);
 				email.setTo(user.getEmail());
-				email.setSubject("Welcome To Orchard");
+				email.setSubject("Welcome To PhotoSocial");
 				email.setText(text, true);
 				email.setFrom(new InternetAddress(env.getProperty("support.email")));
 			}
@@ -70,7 +71,7 @@ public class EmailConstructor {
 				MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
 				email.setPriority(1);
 				email.setTo(user.getEmail());
-				email.setSubject("Profile Update - Orchard");
+				email.setSubject("Profile Update - PhotoSocial");
 				email.setText(text, true);
 				email.setFrom(new InternetAddress(env.getProperty("support.email")));
 			}
