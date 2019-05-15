@@ -10,17 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rexsoft.models.User;
 import com.rexsoft.services.AccountService;
 
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/user")
 public class AccountResource {
@@ -53,7 +57,7 @@ public class AccountResource {
 		}
 	}
 
-	@GetMapping("/findByUsername{username}")
+	@GetMapping("/findByUsername/{username}")
 	public ResponseEntity<?> getUsersListByUsername(@PathVariable("username") String username) {
 		List<User> users = accountService.getUserListByUsername(username);
 		if (users.isEmpty()) {
@@ -101,12 +105,12 @@ public class AccountResource {
 	}
 
 	@PostMapping("/photo/upload")
-	public ResponseEntity<?> uploadPhoto(HttpServletRequest request) {
+	public ResponseEntity<String> fileUpload(@RequestParam("image") MultipartFile multipartFile) {
 		try {
-			accountService.saveUserImage(request, UserImageId);
-			return new ResponseEntity<>("Image has been uploaded", HttpStatus.OK);
+			accountService.saveUserImage(multipartFile, UserImageId);
+			return new ResponseEntity<>("User Picture Saved!", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("An error ocurred", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("User Picture Not Saved", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -122,7 +126,7 @@ public class AccountResource {
 		String confirmPassword = request.get("confirmPassword");
 
 		if (!newPassowrd.equals(confirmPassword)) {
-			return new ResponseEntity<>("Pasword not match", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("PasswordNotMatched", HttpStatus.BAD_REQUEST);
 		}
 		String userPasswod = user.getPassword();
 		try {
@@ -131,7 +135,7 @@ public class AccountResource {
 				if (passwordEncoder.matches(currentPassword, userPasswod)) {
 					accountService.updateUserPassword(user, currentPassword);
 				} else {
-					return new ResponseEntity<>("Incorrect Current Password", HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<>("IncorrectCurrentPassword", HttpStatus.BAD_REQUEST);
 				}
 			}
 		} catch (Exception e) {

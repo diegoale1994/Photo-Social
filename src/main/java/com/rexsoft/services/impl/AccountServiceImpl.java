@@ -148,24 +148,26 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public User simpleSave(User user) {
 		this.userRepo.save(user);
-		mailSender.send(emailConstructor.constructUpdateUserProfileEmail(user));
+		//mailSender.send(emailConstructor.constructUpdateUserProfileEmail(user));
 		return user;
 	}
 
 	@Override
-	public String saveUserImage(HttpServletRequest request, Long userImageId) {
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> it = multipartRequest.getFileNames();
-		MultipartFile multipartFile = multipartRequest.getFile(it.next());
+	public String saveUserImage(MultipartFile multipartFile, Long userImageId) {
+		/*
+		 * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
+		 * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
+		 * multipartFile = multipartRequest.getFile(it.next());
+		 */
 		byte[] bytes;
 		try {
-			Files.deleteIfExists(Paths.get(Constants.USER_FOLDER+"/"+userImageId+".png"));
+			Files.deleteIfExists(Paths.get(Constants.USER_FOLDER + "/" + userImageId + ".png"));
 			bytes = multipartFile.getBytes();
-			Path path = Paths.get(Constants.POST_FOLDER + userImageId + ".png");
+			Path path = Paths.get(Constants.USER_FOLDER + userImageId + ".png");
 			Files.write(path, bytes);
-			return "User picture saved";
-		}catch (Exception e) {
-			return "Error ocurre, Photo Not saved";
+			return "User picture saved to server";
+		} catch (IOException e) {
+			return "User picture Saved";
 		}
 	}
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.rexsoft.models.Role;
 import com.rexsoft.models.User;
 
@@ -21,7 +23,7 @@ public interface AccountService {
 	public void resetPassword(User user);
 	public List<User> getUserListByUsername(String username);
 	public User simpleSave(User user); 
-	public String saveUserImage(HttpServletRequest request, Long userImageId);
+	public String saveUserImage(MultipartFile multipartFile, Long userImageId);
 	public void updateUserPassword(User user, String newpasword);
 	public List<User> getUsersListByUsername(String name);
 	public User updateUser(User user, HashMap<String, String> request);

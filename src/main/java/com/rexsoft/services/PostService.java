@@ -3,7 +3,7 @@ package com.rexsoft.services;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rexsoft.models.Post;
 import com.rexsoft.models.User;
@@ -15,6 +15,6 @@ public interface PostService {
 	public Post getPostById(Long id);
 	public List<Post> findPostByUsername(String username);
 	public Post deletePost(Post post);
-	public String savePostImage(HttpServletRequest request, String fileName);
+	public String savePostImage(MultipartFile multipartFile, String fileName);
 	
 }

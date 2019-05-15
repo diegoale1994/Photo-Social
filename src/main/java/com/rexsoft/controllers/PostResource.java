@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rexsoft.models.Comment;
 import com.rexsoft.models.Post;
@@ -82,6 +84,7 @@ public class PostResource {
 		}
 
 		postImageName = RandomStringUtils.randomAlphabetic(10);
+		System.out.println(postImageName);
 		try {
 			Post post = postService.savePost(user, request, postImageName);
 			return new ResponseEntity<>(post, HttpStatus.CREATED);
@@ -118,7 +121,7 @@ public class PostResource {
 			return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
 		}
 		try {
-			post.setLikes(post.getLikes() + 1);
+			post.setLikes(1);
 			user.setLikedPost(post);
 			accountService.simpleSave(user);
 			return new ResponseEntity<>("Post was liked", HttpStatus.OK);
@@ -141,7 +144,7 @@ public class PostResource {
 			return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
 		}
 		try {
-			post.setLikes(post.getLikes() - 1);
+			post.setLikes(-1);
 			user.getLikedPost().remove(post);
 			accountService.simpleSave(user);
 			return new ResponseEntity<>("Post was uliked", HttpStatus.OK);
@@ -177,12 +180,12 @@ public class PostResource {
 	}
 
 	@PostMapping("/photo/upload")
-	public ResponseEntity<String> fileUpload(HttpServletRequest request) {
+	public ResponseEntity<String> fileUpload(@RequestParam("image") MultipartFile multipartFile) {
 		try {
-			postService.savePostImage(request, postImageName);
-			return new ResponseEntity<>("picture saved", HttpStatus.OK);
+			postService.savePostImage(multipartFile, postImageName);
+			return new ResponseEntity<>("Picture Saved!", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("An error ocurred ", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Picture was saved", HttpStatus.BAD_REQUEST);
 		}
 	}
 }

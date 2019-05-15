@@ -1,5 +1,6 @@
 package com.rexsoft.services.impl;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,6 +37,7 @@ public class PostServiceImpl implements PostService {
 		Post post = new Post();
 		post.setCaption(caption);
 		post.setLocation(location);
+		post.setName(PostImageName);
 		post.setUsername(user.getUsername());
 		post.setPostedDate(new Date());
 		post.setUserImageId(user.getId());
@@ -64,27 +66,32 @@ public class PostServiceImpl implements PostService {
 		try {
 			Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/"+ post.getName() + ".png"));
 			Post postB = post;
-			postRepo.delete(post);
+			postRepo.deletePostById(post.getId());
 			return postB;
 		}catch(Exception e) {
-			
+			return null;
 		}
-		return null;
 	}
 
 	@Override
-	public String savePostImage(HttpServletRequest request, String fileName) {
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> it = multipartRequest.getFileNames();
-		MultipartFile multipartFile = multipartRequest.getFile(it.next());
+	public String savePostImage(MultipartFile multipartFile, String fileName) {
+		
+		/*
+		 * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
+		 * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
+		 * multipartFile = multipartRequest.getFile(it.next());
+		 */
+		 
 		try {
 			byte[] bytes = multipartFile.getBytes();
 			Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
 			Files.write(path, bytes, StandardOpenOption.CREATE);
-		}catch (Exception e) {
-			return "Error ocurre, Photo Not saved";
+		} catch (IOException e) {
+			System.out.println("Error occured. Photo not saved!");
+			return "Error occured. Photo not saved!";
 		}
-		return "Photo saved successfully";
+		System.out.println("Photo saved successfully!");
+		return "Photo saved successfully!";
 	}
 
 }

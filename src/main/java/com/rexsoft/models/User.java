@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class User implements Serializable {
 
@@ -29,6 +31,7 @@ public class User implements Serializable {
 	
 	@Column(unique = true)
 	private String username;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private String email;
 	
